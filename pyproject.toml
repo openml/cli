@@ -27,6 +27,7 @@ classifiers = [
 keywords = ["openml", "machine-learning", "cli", "command-line"]
 dependencies = [
     "click>=8.0.0",
+    "openml>=0.14.0",
 ]
 
 [project.optional-dependencies]
