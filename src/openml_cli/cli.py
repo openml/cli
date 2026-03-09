@@ -3,6 +3,7 @@
 import click
 
 from openml_cli import __version__
+from openml_cli.commands.flows import flows
 
 
 @click.group()
@@ -13,6 +14,9 @@ def main():
     A CLI tool for interacting with the OpenML platform.
     """
     pass
+
+
+main.add_command(flows)
 
 
 @main.command()
