@@ -50,3 +50,31 @@ def flows_list(offset, size, tag, uploader, output):
                 f"  {row['id']:>6}  {row['name']:<40}  v{row['version']}"
             )
 
+
+@flows.command("info")
+@click.argument("flow_id", type=int)
+def flows_info(flow_id):
+    """Show detailed information about a specific flow."""
+    import openml
+
+    try:
+        flow = openml.flows.get_flow(flow_id)
+    except Exception as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+    click.echo(f"Flow ID     : {flow.flow_id}")
+    click.echo(f"Name        : {flow.name}")
+    click.echo(f"Version     : {flow.version}")
+    click.echo(f"Description : {flow.description or 'N/A'}")
+    click.echo(f"Uploader    : {flow.uploader}")
+    click.echo(f"Upload date : {flow.upload_date or 'N/A'}")
+
+    if flow.parameters:
+        click.echo(f"\nParameters ({len(flow.parameters)}):")
+        for name, value in flow.parameters.items():
+            click.echo(f"  {name}: {value}")
+
+    if flow.tags:
+        click.echo(f"\nTags: {', '.join(flow.tags)}")
+
