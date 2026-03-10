@@ -78,3 +78,34 @@ def flows_info(flow_id):
     if flow.tags:
         click.echo(f"\nTags: {', '.join(flow.tags)}")
 
+
+@flows.command("search")
+@click.argument("query")
+@click.option("--size", type=int, default=1000, help="Max flows to search through.")
+@click.option("--tag", type=str, default=None, help="Pre-filter by tag.")
+def flows_search(query, size, tag):
+    """Search for flows by name (case-insensitive)."""
+    import openml
+
+    try:
+        df = openml.flows.list_flows(offset=0, size=size, tag=tag)
+    except Exception as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+    if df.empty:
+        click.echo("No flows found on the server.")
+        return
+
+    query_lower = query.lower()
+    matches = df[df["name"].str.lower().str.contains(query_lower, na=False)]
+
+    if matches.empty:
+        click.echo(f"No flows matching '{query}'.")
+        return
+
+    click.echo(f"\nFound {len(matches)} flow(s) matching '{query}':\n")
+    for _, row in matches.iterrows():
+        click.echo(
+            f"  {row['id']:>6}  {row['name']:<40}  v{row['version']}"
+        )
