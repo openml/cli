@@ -3,6 +3,7 @@
 import click
 
 from openml_cli import __version__
+from openml_cli.commands.datasets import datasets
 from openml_cli.commands.flows import flows
 
 
@@ -16,6 +17,7 @@ def main():
     pass
 
 
+main.add_command(datasets)
 main.add_command(flows)
 
 
