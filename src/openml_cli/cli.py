@@ -5,6 +5,7 @@ import click
 from openml_cli import __version__
 from openml_cli.commands.datasets import datasets
 from openml_cli.commands.flows import flows
+from openml_cli.commands.tasks import tasks
 
 
 @click.group()
@@ -19,6 +20,7 @@ def main():
 
 main.add_command(datasets)
 main.add_command(flows)
+main.add_command(tasks)
 
 
 @main.command()
