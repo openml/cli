@@ -27,11 +27,13 @@ classifiers = [
 keywords = ["openml", "machine-learning", "cli", "command-line"]
 dependencies = [
     "click>=8.0.0",
+    "openml>=0.14.0",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
+    "pandas>=1.0.0",
 ]
 
 [project.scripts]

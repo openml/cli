@@ -3,6 +3,10 @@
 import click
 
 from openml_cli import __version__
+from openml_cli.commands.datasets import datasets
+from openml_cli.commands.flows import flows
+from openml_cli.commands.runs import runs
+from openml_cli.commands.tasks import tasks
 
 
 @click.group()
@@ -13,6 +17,12 @@ def main():
     A CLI tool for interacting with the OpenML platform.
     """
     pass
+
+
+main.add_command(datasets)
+main.add_command(flows)
+main.add_command(runs)
+main.add_command(tasks)
 
 
 @main.command()
